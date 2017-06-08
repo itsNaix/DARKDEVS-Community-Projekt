@@ -10,4 +10,4 @@ Ein mehr oder weniger kleines Community-Projekt des DARK DEVS Discords von Zekro
 - Sollte er dies nicht können, kann er einen Antrag stellen um 5 Minuten Zeit zu bekommen, um sein Grundstück zu räumen. 
 - Der Handel spielt sich auf dem Marktplatz der Hauptstadt ab. 
 - Hier kann man entweder für einen festen Preis Items an die Hauptstadt (ver)kaufen, oder an Ständen, die man mieten kann, besonderen Angebote anbieten, oder von anderen Spielern kaufen kann.
-- Geld kann man durch Verkauf von Items,  Erreichen von Archievments und Töten von Mobs bekommen.
+- Geld kann man durch Verkauf von Items,  Erreichen von Achievements und Töten von Mobs bekommen.
