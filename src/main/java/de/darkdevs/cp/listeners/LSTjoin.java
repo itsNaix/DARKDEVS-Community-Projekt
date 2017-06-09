@@ -20,8 +20,8 @@ public class LSTjoin implements Listener {
         String uuid = p.getUniqueId().toString();
 
         try {
-            ResultSet rs = MySQL.getResult("SELECT * FROM Players WHERE UUID='" + uuid + "'");
-            if(!rs.next()) MySQL.execute("INSERT INTO Players(Name,UUID,Money) VALUES ('" + p.getName() + "','" + uuid + "',0)");
+            ResultSet rs = MySQL.getResult("SELECT * FROM players_money WHERE uuid='" + uuid + "'");
+            if(!rs.next()) MySQL.execute("INSERT INTO players_money(name,uuid,money) VALUES ('" + p.getName() + "','" + uuid + "',0)");
         } catch (SQLException ex) {
             ex.printStackTrace();
         }

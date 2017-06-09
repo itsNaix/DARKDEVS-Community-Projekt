@@ -36,13 +36,13 @@ public class MoneyHandler {
         return 0;
     }
 
-    public static void addMoney(Player p, int money) {
+    public static void addMoney(Player p, int value) {
         if(userExists(p)) {
             try {
                 ResultSet rs = MySQL.getResult("SELECT Money FROM players_money WHERE UUID='" + p.getUniqueId().toString() + "'");
                 if (rs.next()) {
                     int current = rs.getInt("money");
-                    int after = current + money;
+                    int after = current + value;
                     PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE players_money SET money=? WHERE uuid='" + p.getUniqueId().toString() + "'");
                     ps.setInt(1, after);
                     ps.executeUpdate();
