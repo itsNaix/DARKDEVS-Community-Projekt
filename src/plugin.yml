@@ -1,0 +1,10 @@
+ name: Plugin
+ version: 1.0.0
+ description: Dies ist ein Community Plugin
+ author: DarkDevs
+ authors: [naix, Skillkiller]
+ website:
+
+ main: de.darkdevs.cp.main.Main
+ database: false
+ depend: []
