@@ -28,6 +28,7 @@ public class CMDmünzen implements CommandExecutor {
                         p.sendMessage(var.pr + "Deinem Vermögen wurden §6" + args[1] + " §rMünzen hinzugefügt!");
                     }
 
+                    // Set money of yourself
                 } else if (args[0].equalsIgnoreCase("set")) {
                     if (IntUtils.stringIsInt(args[1])){
                         int value = Integer.parseInt(args[1]);
@@ -38,25 +39,34 @@ public class CMDmünzen implements CommandExecutor {
                     p.sendMessage(var.invalidUsage);
                 }
 
-                // Add money to another player
             } else if (args.length == 3 && p.isOp()) {
 
+                // Add money to another player
                 if (args[0].equalsIgnoreCase("add")) {
-                    Player target = Bukkit.getPlayerExact(args[2]);
-                    if (IntUtils.stringIsInt(args[1]) && target.isOnline()){
-                        int value = Integer.parseInt(args[1]);
-                        MoneyHandler.addMoney(target, value);
-                        p.sendMessage(var.pr + "Dem vermögen von §6" + args[2] + " §rwurden §6" + args[1] + " §rMünzen hinzugefügt!");
-                        target.sendMessage(var.pr + "Deinem Vermögen wurden §6" + args[1] + " §rMünzen hinzugefügt!");
+                    try {
+                        Player target = Bukkit.getPlayerExact(args[2]);
+                        if (IntUtils.stringIsInt(args[1]) && target.isOnline()){
+                            int value = Integer.parseInt(args[1]);
+                            MoneyHandler.addMoney(target, value);
+                            p.sendMessage(var.pr + "Dem vermögen von §6" + args[2] + " §rwurden §6" + args[1] + " §rMünzen hinzugefügt!");
+                            target.sendMessage(var.pr + "Deinem Vermögen wurden §6" + args[1] + " §rMünzen hinzugefügt!");
+                        }
+                    } catch (Exception ex) {
+                        p.sendMessage(var.invalidUsage);
                     }
 
+                    // Set money of another player
                 } else if (args[0].equalsIgnoreCase("set")) {
-                    Player target = Bukkit.getPlayerExact(args[2]);
-                    if (IntUtils.stringIsInt(args[1]) && target.isOnline()) {
-                        int value = Integer.parseInt(args[1]);
-                        MoneyHandler.setMoney(target, value);
-                        p.sendMessage(var.pr + "Das Vermögen von §6" + args[2] + " §rbeträgt nun §6" + args[1] + " §rMünzen!");
-                        target.sendMessage(var.pr + "Dein Vermögen beträgt nun §6" + args[1] + " §rMünzen!");
+                    try {
+                        Player target = Bukkit.getPlayerExact(args[2]);
+                        if (IntUtils.stringIsInt(args[1]) && target.isOnline()) {
+                            int value = Integer.parseInt(args[1]);
+                            MoneyHandler.setMoney(target, value);
+                            p.sendMessage(var.pr + "Das Vermögen von §6" + args[2] + " §rbeträgt nun §6" + args[1] + " §rMünzen!");
+                            target.sendMessage(var.pr + "Dein Vermögen beträgt nun §6" + args[1] + " §rMünzen!");
+                        }
+                    } catch (Exception ex) {
+                        p.sendMessage(var.invalidUsage);
                     }
                 }
 
