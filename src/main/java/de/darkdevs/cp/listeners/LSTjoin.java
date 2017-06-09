@@ -22,13 +22,11 @@ public class LSTjoin implements Listener {
 
         e.setJoinMessage(var.joinMessage.replace("%PLAYERNAME%", p.getDisplayName()));
 
-        if(!p.hasPlayedBefore()) {
-            try {
-                ResultSet rs = MySQL.getResult("SELECT * FROM players_money WHERE uuid='" + uuid + "'");
-                if(!rs.next()) MySQL.execute("INSERT INTO players_money(name,uuid,money) VALUES ('" + p.getName() + "','" + uuid + "',0)");
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
+        try {
+            ResultSet rs = MySQL.getResult("SELECT * FROM players_money WHERE uuid='" + uuid + "'");
+            if(!rs.next()) MySQL.execute("INSERT INTO players_money(name,uuid,money) VALUES ('" + p.getName() + "','" + uuid + "',0)");
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
 
     }
