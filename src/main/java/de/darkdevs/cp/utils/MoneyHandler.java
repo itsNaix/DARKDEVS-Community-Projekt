@@ -53,6 +53,23 @@ public class MoneyHandler {
         }
     }
 
+    public static void remMoney(Player p, int value) {
+        if(userExists(p)) {
+            try {
+                ResultSet rs = MySQL.getResult("SELECT Money FROM players_money WHERE UUID='" + p.getUniqueId().toString() + "'");
+                if (rs.next()) {
+                    int current = rs.getInt("money");
+                    int after = current - value;
+                    PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE players_money SET money=? WHERE uuid='" + p.getUniqueId().toString() + "'");
+                    ps.setInt(1, after);
+                    ps.executeUpdate();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public static void setMoney(Player p, int money) {
         if(userExists(p)) {
             try {
