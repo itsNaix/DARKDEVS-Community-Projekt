@@ -1,6 +1,7 @@
 package de.darkdevs.cp.listeners;
 
 import de.darkdevs.cp.utils.MySQL;
+import de.darkdevs.cp.utils.var;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -18,6 +19,8 @@ public class LSTjoin implements Listener {
     public void onJoin(PlayerJoinEvent e) {
         Player p = e.getPlayer();
         String uuid = p.getUniqueId().toString();
+
+        e.setJoinMessage(var.joinMessage.replace("%PLAYERNAME%", p.getDisplayName()));
 
         if(!p.hasPlayedBefore()) {
             try {
