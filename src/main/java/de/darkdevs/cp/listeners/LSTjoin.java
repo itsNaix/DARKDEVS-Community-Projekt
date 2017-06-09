@@ -16,11 +16,11 @@ import java.sql.SQLException;
 public class LSTjoin implements Listener {
 
     @EventHandler
-    public static void onJoin(PlayerJoinEvent e) {
+    public void onJoin(PlayerJoinEvent e) {
         Player p = e.getPlayer();
         String uuid = p.getUniqueId().toString();
 
-        if(!e.getPlayer().hasPlayedBefore()) {
+        if(!p.hasPlayedBefore()) {
             try {
                 ResultSet rs = MySQL.getResult("SELECT * FROM players_money WHERE uuid='" + uuid + "'");
                 if(!rs.next()) MySQL.execute("INSERT INTO players_money(name,uuid,money) VALUES ('" + p.getName() + "','" + uuid + "',0)");
