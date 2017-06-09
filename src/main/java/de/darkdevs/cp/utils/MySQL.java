@@ -22,9 +22,9 @@ public class MySQL {
 
     public static void checkMySQLFile() {
         File file = new File("plugins/utils", "mysql.yml");
-        File ordner = new File("plugins/utils/");
-        if(!ordner.exists()) {
-            ordner.mkdirs();
+        File dir = new File("plugins/utils/");
+        if(!dir.exists()) {
+            dir.mkdirs();
         }
         if(!file.exists()) {
             try {
