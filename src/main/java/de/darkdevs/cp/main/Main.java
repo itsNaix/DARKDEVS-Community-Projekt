@@ -3,8 +3,9 @@ package de.darkdevs.cp.main;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
- * Created by Skillkiller on 09.06.2017.
+ * Created by DarkDevs  on 09.06.2017.
  */
+
 public class Main extends JavaPlugin {
 
     @Override
