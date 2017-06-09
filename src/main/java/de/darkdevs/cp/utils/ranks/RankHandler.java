@@ -27,7 +27,7 @@ public class RankHandler {
     }
 
     public static void addRank(Player p, int rankID) {
-        if(userExists(p)) if (!hasRank(p, rankID)) {
+        if(userExists(p) && !hasRank(p, rankID)) {
             MySQL.execute("UPDATE players_rankID SET rankID=" + rankID + " WHERE UUID='" + p.getUniqueId().toString() + "'");
         }
     }
@@ -54,6 +54,5 @@ public class RankHandler {
             catch (SQLException e) { e.printStackTrace(); }
         } return false;
     }
-    
 
 }
