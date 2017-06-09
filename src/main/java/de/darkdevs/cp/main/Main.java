@@ -10,7 +10,8 @@ public class Main extends JavaPlugin {
 
     @Override
     public void onEnable() {
-
+        super.onEnable();
+        System.out.println("[Community] Plugin wurde geladen!");
     }
 
     @Override
