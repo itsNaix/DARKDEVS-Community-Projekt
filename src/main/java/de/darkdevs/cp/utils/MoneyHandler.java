@@ -21,17 +21,18 @@ public class MoneyHandler {
         return false;
     }
 
-    public static void getMoney(Player p) {
+    public static int getMoney(Player p) {
         if(userExists(p)) {
             try {
                 ResultSet rs = MySQL.getResult("SELECT Money FROM Players WHERE UUID='" + p.getUniqueId().toString() + "'");
                 if (rs.next()) {
-                    System.out.println(rs.getInt("Money"));
+                    return rs.getInt("Money");
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
+        return 0;
     }
 
     public static void addMoney(Player p, int money) {
