@@ -24,7 +24,7 @@ public class LSTjoin implements Listener {
 
         try {
             ResultSet rs = MySQL.getResult("SELECT * FROM players_money WHERE uuid='" + uuid + "'");
-            if(!rs.next()) MySQL.execute("INSERT INTO players_money(name,uuid,money,rankID) VALUES ('" + p.getName() + "','" + uuid + "',0)");
+            if(!rs.next()) MySQL.execute("INSERT INTO players_money(name,uuid,money) VALUES ('" + p.getName() + "','" + uuid + "',0)");
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
