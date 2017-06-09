@@ -1,5 +1,12 @@
 package de.darkdevs.cp.main;
 
+import de.darkdevs.cp.commands.CMDmünzen;
+import de.darkdevs.cp.listeners.LSTjoin;
+import de.darkdevs.cp.listeners.LSTquit;
+import de.darkdevs.cp.utils.MySQL;
+import de.darkdevs.cp.utils.var;
+import org.bukkit.Bukkit;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -8,15 +15,43 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class Main extends JavaPlugin {
 
+    private static Main plugin;
+
     @Override
     public void onEnable() {
+        plugin = this;
         super.onEnable();
-        System.out.println("[Community] Plugin wurde geladen!");
+        MySQL.checkMySQLFile();
+        MySQL.getMySQLData();
+        MySQL.connect();
+
+        if (MySQL.isConnected()) {
+            MySQL.checkTables();
+            init();
+            Bukkit.getConsoleSender().sendMessage(var.pr + "Plugin wurde geladen!");
+        } else {
+            Bukkit.getConsoleSender().sendMessage(var.pr + "MySQL Verbindung nicht aufgebaut!");
+        }
+
     }
 
     @Override
     public void onDisable() {
+        MySQL.close();
+    }
 
+    private void init() {
+
+        this.getCommand("münzen").setExecutor(new CMDmünzen());
+
+        PluginManager pm = Bukkit.getPluginManager();
+        pm.registerEvents(new LSTjoin(), getPlugin());
+        pm.registerEvents(new LSTquit(), getPlugin());
+
+    }
+
+    public static Main getPlugin() {
+        return plugin;
     }
 
 }

@@ -1,0 +1,20 @@
+Hilfe für die Money-API:
+
+
+Player p = e.getPlayer();
+
+Um das Geld eines Spielers abzurufen:
+
+MoneyHandler.getMoney(p);
+
+Um Geld zum Konto hinzuzufügen:
+
+MoneyHandler.addMoney(p, betrag);
+
+Um Geld vom Konto zu entfernen:
+
+MoneyHandler.remMoney(p, betrag);
+
+Um den Betrag des Kontos beliebig zu ändern:
+
+MoneyHandler.setMoney(p, betrag);
