@@ -104,7 +104,7 @@ public class MySQL {
 
     public static void checkTables() {
         if(isConnected()) {
-            MySQL.execute("CREATE TABLE IF NOT EXISTS players_money (name VARCHAR(100), uuid VARCHAR(100), money INT(100))");
+            MySQL.execute("CREATE TABLE IF NOT EXISTS players_money (name VARCHAR(100), uuid VARCHAR(100), money INT(100), rankID INT(100))");
         }
     }
 

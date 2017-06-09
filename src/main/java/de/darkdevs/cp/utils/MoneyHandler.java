@@ -6,21 +6,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import static de.darkdevs.cp.utils.var.userExists;
+
 /**
  * Created by julia on 09.06.2017.
  */
 
 public class MoneyHandler {
-
-    private static boolean userExists(Player p) {
-        ResultSet rs = MySQL.getResult("SELECT money FROM players_money WHERE uuid ='" +  p.getUniqueId() + "'");
-        try {
-            return rs.next();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
 
     public static int getMoney(Player p) {
         if(userExists(p)) {
