@@ -24,9 +24,15 @@ public class Main extends JavaPlugin {
         MySQL.checkMySQLFile();
         MySQL.getMySQLData();
         MySQL.connect();
-        MySQL.checkTables();
-        init();
-        Bukkit.getConsoleSender().sendMessage(var.pr + "Plugin wurde geladen!");
+
+        if (MySQL.isConnected()) {
+            MySQL.checkTables();
+            init();
+            Bukkit.getConsoleSender().sendMessage(var.pr + "Plugin wurde geladen!");
+        } else {
+            Bukkit.getConsoleSender().sendMessage(var.pr + "MySQL Verbindung nicht aufgebaut!");
+        }
+
     }
 
     @Override
