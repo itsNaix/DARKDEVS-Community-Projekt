@@ -1,5 +1,6 @@
 package de.darkdevs.cp.utils;
 
+import de.darkdevs.cp.main.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -20,9 +21,11 @@ public class MySQL {
     private static String port;
     private static Connection con;
 
+
     public static void checkMySQLFile() {
-        File file = new File("plugins/utils", "mysql.yml");
-        File dir = new File("plugins/utils/");
+        File dir = new File(Main.getPlugin().getDataFolder() + "/utils/");
+        File file = new File(dir.getAbsolutePath(), "mysql.yml");
+
         if(!dir.exists()) {
             dir.mkdirs();
         }
@@ -45,7 +48,7 @@ public class MySQL {
     }
 
     public static void getMySQLData() {
-        File file = new File("plugins/utils", "mysql.yml");
+        File file = new File(Main.getPlugin().getDataFolder() + "/utils/", "mysql.yml");
         FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
         MySQL.username = cfg.getString("username");
         MySQL.password = cfg.getString("password");
