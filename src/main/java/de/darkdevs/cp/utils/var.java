@@ -23,4 +23,6 @@ public class var {
         return false;
     }
 
+    public static String joinMessage = "§8[§a+§8] §a%PLAYERNAME%";
+    public static String quitMessage = "§8[§c-§8] §c%PLAYERNAME%";
 }

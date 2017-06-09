@@ -1,6 +1,7 @@
 package de.darkdevs.cp.listeners;
 
 import de.darkdevs.cp.utils.MySQL;
+import de.darkdevs.cp.utils.var;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -15,9 +16,11 @@ import java.sql.SQLException;
 public class LSTjoin implements Listener {
 
     @EventHandler
-    public static void onJoin(PlayerJoinEvent e) {
+    public void onJoin(PlayerJoinEvent e) {
         Player p = e.getPlayer();
         String uuid = p.getUniqueId().toString();
+
+        e.setJoinMessage(var.joinMessage.replace("%PLAYERNAME%", p.getDisplayName()));
 
         try {
             ResultSet rs = MySQL.getResult("SELECT * FROM players_money WHERE uuid='" + uuid + "'");

@@ -11,6 +11,10 @@ Um Geld zum Konto hinzuzufügen:
 
 MoneyHandler.addMoney(p, betrag);
 
+Um Geld vom Konto zu entfernen:
+
+MoneyHandler.remMoney(p, betrag);
+
 Um den Betrag des Kontos beliebig zu ändern:
 
 MoneyHandler.setMoney(p, betrag);
