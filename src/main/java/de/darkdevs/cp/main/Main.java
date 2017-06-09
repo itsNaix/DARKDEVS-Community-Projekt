@@ -1,5 +1,6 @@
 package de.darkdevs.cp.main;
 
+import de.darkdevs.cp.commands.CMDmünzen;
 import de.darkdevs.cp.listeners.LSTjoin;
 import de.darkdevs.cp.utils.MySQL;
 import de.darkdevs.cp.utils.var;
@@ -32,9 +33,13 @@ public class Main extends JavaPlugin {
         MySQL.close();
     }
 
-    private static void init() {
+    private void init() {
+
+        this.getCommand("münzen").setExecutor(new CMDmünzen());
+
         PluginManager pm = Bukkit.getPluginManager();
         pm.registerEvents(new LSTjoin(), getPlugin());
+
     }
 
     public static Main getPlugin() {

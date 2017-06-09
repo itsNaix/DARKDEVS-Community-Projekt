@@ -8,3 +8,7 @@
 
  database: false
  depend: []
+
+ commands:
+     münzen:
+         description: Schau dir dein Vermögen an

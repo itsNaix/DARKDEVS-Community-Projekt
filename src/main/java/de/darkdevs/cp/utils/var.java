@@ -6,4 +6,6 @@ package de.darkdevs.cp.utils;
 public class var {
 
     public static String pr = "§8[§7Community§8]§r ";
+    public static String invalidUsage = "§8[§7Community§8]§c Invalid Command Usage!";
+
 }
