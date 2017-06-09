@@ -9,6 +9,7 @@ import java.sql.SQLException;
 /**
  * Created by julia on 09.06.2017.
  */
+
 public class MoneyHandler {
 
     private static boolean userExists(Player p) {
