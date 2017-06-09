@@ -1,7 +1,6 @@
 package de.darkdevs.cp.listeners;
 
 import de.darkdevs.cp.utils.MySQL;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
