@@ -1,6 +1,7 @@
 package de.darkdevs.cp.listeners;
 
 import de.darkdevs.cp.utils.MySQL;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -19,11 +20,13 @@ public class LSTjoin implements Listener {
         Player p = e.getPlayer();
         String uuid = p.getUniqueId().toString();
 
-        try {
-            ResultSet rs = MySQL.getResult("SELECT * FROM players_money WHERE uuid='" + uuid + "'");
-            if(!rs.next()) MySQL.execute("INSERT INTO players_money(name,uuid,money) VALUES ('" + p.getName() + "','" + uuid + "',0)");
-        } catch (SQLException ex) {
-            ex.printStackTrace();
+        if(!e.getPlayer().hasPlayedBefore()) {
+            try {
+                ResultSet rs = MySQL.getResult("SELECT * FROM players_money WHERE uuid='" + uuid + "'");
+                if(!rs.next()) MySQL.execute("INSERT INTO players_money(name,uuid,money) VALUES ('" + p.getName() + "','" + uuid + "',0)");
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
         }
 
     }
