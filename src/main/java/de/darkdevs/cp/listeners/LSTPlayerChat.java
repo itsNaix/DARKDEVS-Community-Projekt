@@ -1,5 +1,6 @@
 package de.darkdevs.cp.listeners;
 
+import de.darkdevs.cp.utils.ranks.RankUtils;
 import de.darkdevs.cp.utils.var;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -16,7 +17,7 @@ public class LSTPlayerChat implements Listener {
         //Verarbeite Platzhalter!
 
         String newMessage = var.chatFormat.replace("%S%", ""); //Replacement bearbeiten!
-        newMessage = newMessage.replace("%RANG%", "");         //Replacement bearbeiten!
+        newMessage = newMessage.replace("%RANG%", RankUtils.getRankName(e.getPlayer()));         //Replacement bearbeiten!
         newMessage = newMessage.replace("%PLAYERNAME%", e.getPlayer().getDisplayName());
         newMessage = newMessage.replace("%MESSAGE%", e.getMessage());
 

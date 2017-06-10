@@ -14,10 +14,10 @@ import static de.darkdevs.cp.utils.var.userExists;
  */
 public class RankHandler {
 
-    public static int getRank(Player p) {
+    public static int getRankID(Player p) {
         try {
             if (userExists(p)) {
-                ResultSet rs = MySQL.getResult("SELECT rankID FROM Players WHERE UUID='" + p.getUniqueId().toString() + "'");
+                ResultSet rs = MySQL.getResult("SELECT rankID FROM players_rank WHERE uuid='" + p.getUniqueId().toString() + "'");
                 if (rs.next()) return rs.getInt("rankID");
             }
         } catch(Exception e) {

@@ -23,8 +23,12 @@ public class LSTjoin implements Listener {
         e.setJoinMessage(var.joinMessage.replace("%PLAYERNAME%", p.getDisplayName()));
 
         try {
-            ResultSet rs = MySQL.getResult("SELECT * FROM players_money WHERE uuid='" + uuid + "'");
-            if(!rs.next()) MySQL.execute("INSERT INTO players_money(name,uuid,money) VALUES ('" + p.getName() + "','" + uuid + "',0)");
+            ResultSet rs_money = MySQL.getResult("SELECT * FROM players_money WHERE uuid='" + uuid + "'");
+            if(!rs_money.next()) MySQL.execute("INSERT INTO players_money(name,uuid,money) VALUES ('" + p.getName() + "','" + uuid + "',0)");
+
+            ResultSet rs_rank = MySQL.getResult("SELECT * FROM players_rank WHERE uuid='" + uuid + "'");
+            if (!rs_rank.next()) MySQL.execute("INSERT INTO players_rank(name,uuid,rankID,rankReceivedFrom) VALUES ('" + p.getName() + "','" + uuid + "',0, 'Console')");
+
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
