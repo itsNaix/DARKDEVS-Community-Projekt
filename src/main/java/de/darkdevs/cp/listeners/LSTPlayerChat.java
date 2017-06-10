@@ -1,6 +1,6 @@
 package de.darkdevs.cp.listeners;
 
-import de.darkdevs.cp.utils.ranks.RankUtils;
+import de.darkdevs.cp.utils.ranks.RankHandler;
 import de.darkdevs.cp.utils.var;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -15,8 +15,9 @@ public class LSTPlayerChat implements Listener {
     public void onPlayerChat(AsyncPlayerChatEvent e) {
         //Verarbeite Platzhalter!
 
-        String newMessage = var.chatFormat.replace("%S%", ""); //Replacement bearbeiten!
-        newMessage = newMessage.replace("%RANG%", RankUtils.getRankName(e.getPlayer()));
+        String newMessage = var.chatFormat;
+        newMessage = newMessage.replace("%rankColor%", RankHandler.getRankColor(e.getPlayer()));
+        newMessage = newMessage.replace("%RANG%", RankHandler.getRankName(e.getPlayer()));
         newMessage = newMessage.replace("%PLAYERNAME%", e.getPlayer().getDisplayName());
         newMessage = newMessage.replace("%MESSAGE%", e.getMessage());
 
