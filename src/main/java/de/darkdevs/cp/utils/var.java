@@ -25,4 +25,6 @@ public class var {
 
     public static String joinMessage = "§8[§a+§8] §a%PLAYERNAME%";
     public static String quitMessage = "§8[§c-§8] §c%PLAYERNAME%";
+
+    public static String chatFormat = "%S% %RANG% %PLAYERNAME%: %MESSAGE%";
 }

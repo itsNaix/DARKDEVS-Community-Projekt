@@ -1,6 +1,7 @@
 package de.darkdevs.cp.main;
 
 import de.darkdevs.cp.commands.CMDmünzen;
+import de.darkdevs.cp.listeners.LSTPlayerChat;
 import de.darkdevs.cp.listeners.LSTjoin;
 import de.darkdevs.cp.listeners.LSTquit;
 import de.darkdevs.cp.utils.MySQL;
@@ -47,6 +48,7 @@ public class Main extends JavaPlugin {
         PluginManager pm = Bukkit.getPluginManager();
         pm.registerEvents(new LSTjoin(), getPlugin());
         pm.registerEvents(new LSTquit(), getPlugin());
+        pm.registerEvents(new LSTPlayerChat(), getPlugin());
 
     }
 
