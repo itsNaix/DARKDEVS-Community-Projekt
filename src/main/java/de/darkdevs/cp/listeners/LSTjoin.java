@@ -1,6 +1,7 @@
 package de.darkdevs.cp.listeners;
 
 import de.darkdevs.cp.utils.MySQL;
+import de.darkdevs.cp.utils.ranks.RankHandler;
 import de.darkdevs.cp.utils.var;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -20,7 +21,11 @@ public class LSTjoin implements Listener {
         Player p = e.getPlayer();
         String uuid = p.getUniqueId().toString();
 
-        e.setJoinMessage(var.joinMessage.replace("%PLAYERNAME%", p.getDisplayName()));
+        String joinMessage = var.joinMessage;
+        joinMessage = joinMessage.replace("%rankColor%", RankHandler.getRankColor(p));
+        joinMessage = joinMessage.replace("%PLAYERNAME%", p.getDisplayName());
+
+        e.setJoinMessage(joinMessage.trim());
 
         try {
             ResultSet rs_money = MySQL.getResult("SELECT * FROM players_money WHERE uuid='" + uuid + "'");
