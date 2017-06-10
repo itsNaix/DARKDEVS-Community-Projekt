@@ -13,11 +13,10 @@ public class LSTPlayerChat implements Listener {
 
     @EventHandler
     public void onPlayerChat(AsyncPlayerChatEvent e) {
-        //TODO Rang einbauen!
         //Verarbeite Platzhalter!
 
         String newMessage = var.chatFormat.replace("%S%", ""); //Replacement bearbeiten!
-        newMessage = newMessage.replace("%RANG%", RankUtils.getRankName(e.getPlayer()));         //Replacement bearbeiten!
+        newMessage = newMessage.replace("%RANG%", RankUtils.getRankName(e.getPlayer()));
         newMessage = newMessage.replace("%PLAYERNAME%", e.getPlayer().getDisplayName());
         newMessage = newMessage.replace("%MESSAGE%", e.getMessage());
 

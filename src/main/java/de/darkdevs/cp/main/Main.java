@@ -1,6 +1,7 @@
 package de.darkdevs.cp.main;
 
 import de.darkdevs.cp.commands.CMDmünzen;
+import de.darkdevs.cp.commands.CMDrank;
 import de.darkdevs.cp.listeners.LSTPlayerChat;
 import de.darkdevs.cp.listeners.LSTjoin;
 import de.darkdevs.cp.listeners.LSTquit;
@@ -44,6 +45,7 @@ public class Main extends JavaPlugin {
     private void init() {
 
         this.getCommand("münzen").setExecutor(new CMDmünzen());
+        this.getCommand("rank").setExecutor(new CMDrank());
 
         PluginManager pm = Bukkit.getPluginManager();
         pm.registerEvents(new LSTjoin(), getPlugin());

@@ -13,8 +13,8 @@ public class var {
     public static String pr = "§8[§7Community§8]§r ";
     public static String invalidUsage = "§8[§7Community§8]§c Invalid Command Usage!";
 
-    public static boolean userExists(Player p) {
-        ResultSet rs = MySQL.getResult("SELECT * FROM players_money WHERE uuid ='" +  p.getUniqueId() + "'");
+    public static boolean userExists(Player p, String table) {
+        ResultSet rs = MySQL.getResult("SELECT * FROM " + table +" WHERE uuid ='" +  p.getUniqueId() + "'");
         try {
             return rs.next();
         } catch (SQLException e) {

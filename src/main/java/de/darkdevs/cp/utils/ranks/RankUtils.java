@@ -12,4 +12,15 @@ public class RankUtils {
         return ranks.get(RankHandler.getRankID(p));
     }
 
+    public static int getIDfromRank(String rank) {
+
+        List<String> ranks = Arrays.asList("Einwohner", "Stammspieler", "Bürgermeister", "Staff");
+        int i = 0;
+        for ( String s : ranks ) {
+            if (s.equalsIgnoreCase(rank)) return i;
+            else i++;
+        }
+        return 0;
+    }
+
 }

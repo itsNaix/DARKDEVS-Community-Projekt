@@ -15,7 +15,7 @@ import static de.darkdevs.cp.utils.var.userExists;
 public class MoneyHandler {
 
     public static int getMoney(Player p) {
-        if(userExists(p)) {
+        if(userExists(p, "players_money")) {
             try {
                 ResultSet rs = MySQL.getResult("SELECT money FROM players_money WHERE uuid='" + p.getUniqueId().toString() + "'");
                 if (rs.next()) {
@@ -29,7 +29,7 @@ public class MoneyHandler {
     }
 
     public static void addMoney(Player p, int value) {
-        if(userExists(p)) {
+        if(userExists(p, "players_money")) {
             try {
                 ResultSet rs = MySQL.getResult("SELECT Money FROM players_money WHERE UUID='" + p.getUniqueId().toString() + "'");
                 if (rs.next()) {
@@ -46,7 +46,7 @@ public class MoneyHandler {
     }
 
     public static void remMoney(Player p, int value) {
-        if(userExists(p)) {
+        if(userExists(p, "players_money")) {
             try {
                 ResultSet rs = MySQL.getResult("SELECT Money FROM players_money WHERE UUID='" + p.getUniqueId().toString() + "'");
                 if (rs.next()) {
@@ -63,7 +63,7 @@ public class MoneyHandler {
     }
 
     public static void setMoney(Player p, int money) {
-        if(userExists(p)) {
+        if(userExists(p, "players_money")) {
             try {
                 ResultSet rs = MySQL.getResult("SELECT money FROM players_money WHERE uuid='" + p.getUniqueId().toString() + "'");
                 if (rs.next()) {
