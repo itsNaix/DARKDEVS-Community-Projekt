@@ -10,6 +10,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 /**
  * Created by Skillkiller on 09.06.2017.
  */
+
 public class LSTquit implements Listener {
 
     @EventHandler
@@ -18,7 +19,7 @@ public class LSTquit implements Listener {
 
         String quitmessage = var.quitMessage;
         quitmessage = quitmessage.replace("%rankColor%", RankHandler.getRankColor(p));
-        quitmessage = quitmessage.replace("%PLAYERNAME%", RankHandler.getRankColor(p));
+        quitmessage = quitmessage.replace("%PLAYERNAME%", p.getDisplayName());
 
         e.setQuitMessage(quitmessage.trim());
     }

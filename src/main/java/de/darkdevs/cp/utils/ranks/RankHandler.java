@@ -42,7 +42,7 @@ public class RankHandler {
     //TODO java.sql.SQLException: Before start of result set
     public static void setRank(Player p, int rankID) {
         if(userExists(p, "players_rank") && !hasRank(p, rankID)) {
-            MySQL.execute("UPDATE players_rank SET rankID=" + rankID + " WHERE uuid='" + p.getUniqueId().toString() + "'");
+            MySQL.execute("UPDATE players_rank SET rankID='" + rankID + "' WHERE uuid='" + p.getUniqueId().toString() + "'");
         }
     }
 

@@ -107,7 +107,7 @@ public class MySQL {
             MySQL.execute("CREATE TABLE IF NOT EXISTS players_money (name VARCHAR(100), uuid VARCHAR(100), money INT(100))");
             MySQL.execute("CREATE TABLE IF NOT EXISTS players_rank (name VARCHAR(100), uuid VARCHAR(100), rankID INT(100), rankReceivedFrom VARCHAR(100))");
             MySQL.execute("CREATE TABLE IF NOT EXISTS players_mayor (name VARCHAR(100), uuid VARCHAR(100), cname VARCHAR(100))");
-            MySQL.execute("CREATE TABLE IF NOT EXISTS players_support (supportID INT NOT NULL, name VARCHAR(100), uuid VARCHAR(100), message VARCHAR(256), timestamp TIMESTAMP, closed BOOLEAN");
+            MySQL.execute("CREATE TABLE IF NOT EXISTS players_support ( supportID INT NOT NULL AUTO_INCREMENT , name VARCHAR(100) , `uuid` VARCHAR(100) , question VARCHAR(256) , answer VARCHAR(256) , timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP , closed BOOLEAN NOT NULL , PRIMARY KEY (supportID))");
         }
     }
 
