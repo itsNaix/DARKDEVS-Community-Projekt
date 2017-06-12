@@ -5,15 +5,18 @@ import org.bukkit.entity.Player;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by julia on 09.06.2017.
  */
 public class var {
 
-    public static String pr = "§8[§7DarkDevs§8]§r ";
+    public static String pr = "§8[§7DarkDevs§8]§7 ";
     public static String err = pr + "§c";
     public static String invalidUsage = err + "Invalid Command Usage!";
+    public static List<String> notReceived = new ArrayList<>();
 
     public static boolean userExists(Player p, String table) {
         if(p != null) {
