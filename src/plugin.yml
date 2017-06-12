@@ -12,3 +12,7 @@
  commands:
      münzen:
          description: Schau dir dein Vermögen an
+     rank:
+         description: Verwalte die Ränge
+     support:
+         description: Support System

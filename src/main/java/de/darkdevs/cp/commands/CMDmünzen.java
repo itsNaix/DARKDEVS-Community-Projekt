@@ -2,11 +2,13 @@ package de.darkdevs.cp.commands;
 
 import de.darkdevs.cp.utils.IntUtils;
 import de.darkdevs.cp.utils.MoneyHandler;
+import de.darkdevs.cp.utils.ranks.RankHandler;
 import de.darkdevs.cp.utils.var;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
 public class CMDmünzen implements CommandExecutor {
@@ -14,12 +16,12 @@ public class CMDmünzen implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
-        if (cmd.getName().equalsIgnoreCase("münzen") && sender instanceof Player) {
+        if (cmd.getName().equalsIgnoreCase("münzen")) {
 
             Player p = (Player) sender;
             String money = Integer.toString(MoneyHandler.getMoney(p));
             if (args.length == 0) p.sendMessage(var.pr + "Dein derzeitiges Vermögen beträgt §6" + money);
-            else if (args.length == 2 && p.isOp()) {
+            else if (args.length == 2 && (RankHandler.getRankName(p).equalsIgnoreCase("staff") || sender instanceof ConsoleCommandSender)) {
                 // Add money to yourself
                 if (args[0].equalsIgnoreCase("add")) {
                     if (IntUtils.stringIsInt(args[1])) {
@@ -30,11 +32,11 @@ public class CMDmünzen implements CommandExecutor {
 
                     // Set money of yourself
                 } else if (args[0].equalsIgnoreCase("set")) {
-                    if (IntUtils.stringIsInt(args[1])){
-                        int value = Integer.parseInt(args[1]);
-                        MoneyHandler.setMoney(p, value);
-                        p.sendMessage(var.pr + "Dein Vermögen beträgt nun §6" + args[1] + " §rMünzen!");
-                    }
+                        if (IntUtils.stringIsInt(args[1])) {
+                            int value = Integer.parseInt(args[1]);
+                            MoneyHandler.setMoney(p, value);
+                            p.sendMessage(var.pr + "Dein Vermögen beträgt nun §6" + args[1] + " §rMünzen!");
+                        }
                     // Remove money from yourself
                 } else if(args[0].equalsIgnoreCase("remove")){
                     if (IntUtils.stringIsInt(args[1])){
@@ -46,7 +48,7 @@ public class CMDmünzen implements CommandExecutor {
                     p.sendMessage(var.invalidUsage);
                 }
 
-            } else if (args.length == 3 && p.isOp()) {
+            } else if (args.length == 3 && (RankHandler.getRankName(p).equalsIgnoreCase("staff") || sender instanceof ConsoleCommandSender)) {
 
                 // Add money to another player
                 if (args[0].equalsIgnoreCase("add")) {
@@ -92,7 +94,7 @@ public class CMDmünzen implements CommandExecutor {
                     p.sendMessage(var.invalidUsage);
                 }
             } else {
-                p.sendMessage(var.pr + "§cNot enough Permissions!");
+                p.sendMessage(var.err + "Dafür hast du nicht genügend Rechte!");
             }
 
         }
