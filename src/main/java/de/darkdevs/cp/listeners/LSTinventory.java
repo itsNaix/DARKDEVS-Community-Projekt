@@ -20,9 +20,29 @@ public class LSTinventory implements Listener {
 
         Player player = (Player) event.getWhoClicked(); // The player that clicked the item
         Inventory inventory = event.getInventory(); // The inventory that was clicked in
+        ItemStack item = event.getCurrentItem();
 
-        if (inventory.getName().equalsIgnoreCase("§lSupport Menü") || inventory.getName().contains("Ticket")) {
+        if (inventory.getName().equalsIgnoreCase("§lSupport Menü")) {
 
+            if (item.getItemMeta().getDisplayName().contains("#")) {
+                int SupportID = Integer.parseInt(item.getItemMeta().getDisplayName().split("#")[1]);
+                player.openInventory(InventoryUtils.TicketOptions(SupportID));
+            }
+            event.setCancelled(true);
+
+        }
+
+        if (inventory.getName().contains("Ticket")) {
+
+            int SupportID = Integer.parseInt(inventory.getTitle().split("#")[1]);
+            if (item.getItemMeta().getDisplayName().equalsIgnoreCase("§c§lClose Ticket") && !SupportHandler.isClosed(SupportID)) {
+                SupportHandler.setClosed(SupportID);
+                player.openInventory(InventoryUtils.SupportMenü());
+            }
+            if (item.getItemMeta().getDisplayName().equalsIgnoreCase("§lGet Message")) {
+                player.sendMessage(var.pr + "Ticket #§7§l" + SupportID + "§7 von§7§l " + SupportHandler.getName(SupportID) + "§7:");
+                player.sendMessage( "§7\"" + SupportHandler.getQuestion(SupportID).substring(0, SupportHandler.getQuestion(SupportID).length() - 1) + "\"");
+            }
             event.setCancelled(true);
 
         }

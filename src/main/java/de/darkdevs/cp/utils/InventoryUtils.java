@@ -25,7 +25,7 @@ public class InventoryUtils {
     public static Inventory SupportMenü() {
 
         try {
-            Inventory inv = Bukkit.createInventory(null, 9, "§lSupport Menü");
+            Inventory inv = Bukkit.createInventory(null, 18, "§lSupport Menü");
             List<String> supportIDs = new ArrayList<>();
             ResultSet resultSet = MySQL.getResult("select * from players_support");
             while (resultSet.next()) {
@@ -42,6 +42,13 @@ public class InventoryUtils {
 
         return null;
 
+    }
+
+    public static Inventory TicketOptions(int TicketID) {
+        Inventory options = Bukkit.createInventory(null, 9, "§lTicket #" + TicketID);
+        options.setItem(8, createItem("§c§lClose Ticket", Material.BARRIER));
+        options.setItem(0, createItem("§lGet Message", Material.PAPER));
+        return  options;
     }
 
 }

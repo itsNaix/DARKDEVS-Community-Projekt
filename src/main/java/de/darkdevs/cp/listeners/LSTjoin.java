@@ -4,25 +4,17 @@ import de.darkdevs.cp.utils.MySQL;
 import de.darkdevs.cp.utils.ranks.RankHandler;
 import de.darkdevs.cp.utils.support.SupportHandler;
 import de.darkdevs.cp.utils.var;
-import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.inventory.Inventory;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-
-import static de.darkdevs.cp.utils.support.SupportHandler.CheckReceived;
-import static de.darkdevs.cp.utils.support.SupportHandler.getUUID;
 
 /**
  * Created by julia on 09.06.2017.
  */
+
 public class LSTjoin implements Listener {
 
     @EventHandler
@@ -36,8 +28,6 @@ public class LSTjoin implements Listener {
 
         e.setJoinMessage(joinMessage.trim());
 
-        //CheckReceived();
-
         try {
             ResultSet rs_money = MySQL.getResult("SELECT * FROM players_money WHERE uuid='" + uuid + "'");
             if(!rs_money.next()) MySQL.execute("INSERT INTO players_money(name,uuid,money) VALUES ('" + p.getName() + "','" + uuid + "',0)");
@@ -48,6 +38,8 @@ public class LSTjoin implements Listener {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+
+        SupportHandler.sendUnreceived(p);
 
     }
 }
