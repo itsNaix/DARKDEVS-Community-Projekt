@@ -17,6 +17,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static de.darkdevs.cp.utils.support.SupportHandler.CheckReceived;
+import static de.darkdevs.cp.utils.support.SupportHandler.getUUID;
+
 /**
  * Created by julia on 09.06.2017.
  */
@@ -33,7 +36,7 @@ public class LSTjoin implements Listener {
 
         e.setJoinMessage(joinMessage.trim());
 
-        SupportHandler.CheckReceived();
+        //CheckReceived();
 
         try {
             ResultSet rs_money = MySQL.getResult("SELECT * FROM players_money WHERE uuid='" + uuid + "'");
