@@ -40,6 +40,6 @@ public class LSTjoin implements Listener {
         }
 
         SupportHandler.sendUnreceived(p);
-
+        SupportHandler.rememberOpenTickets(p);
     }
 }

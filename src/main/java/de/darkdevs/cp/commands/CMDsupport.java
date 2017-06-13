@@ -53,7 +53,6 @@ public class CMDsupport implements CommandExecutor {
                                 Player target = Bukkit.getPlayerExact(SupportHandler.getName(id));
                                 target.sendMessage(var.pr + SupportHandler.getAnswer(id));
                                 SupportHandler.setClosed(id);
-                                SupportHandler.setReceived(id);
                             } else {
                                 p.sendMessage(var.pr + "§7Der Spieler ist im moment §7§lnicht online§7, er wird benachrichtigt, wenn er den Server betritt!");
                             }
@@ -82,6 +81,7 @@ public class CMDsupport implements CommandExecutor {
                         }
                         if (message != "" || message!= " ") {
                             SupportHandler.createTicket(p, message);
+                            SupportHandler.sendMessageToStaff(var.pr + "§" + RankHandler.getRankColor(p) + "§l" +  p.getName() + "§7 hat ein Ticket erstellt!");
                             p.sendMessage("§5BOT §8| §7SupportBot §8>> §7Dein Ticket wird so bald wie möglich von einem Staff bearbeitet!");
                         } else {
                             p.sendMessage(var.err + "Deine Supportanfrage konnte nicht gesendet werden da du keine Nachricht angegeben hast!");

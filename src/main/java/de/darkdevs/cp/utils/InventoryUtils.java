@@ -3,6 +3,7 @@ package de.darkdevs.cp.utils;
 import de.darkdevs.cp.utils.support.SupportHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -48,7 +49,14 @@ public class InventoryUtils {
         Inventory options = Bukkit.createInventory(null, 9, "§lTicket #" + TicketID);
         options.setItem(8, createItem("§c§lClose Ticket", Material.BARRIER));
         options.setItem(0, createItem("§lGet Message", Material.PAPER));
+        options.setItem(1, createItem("§lAnswer", Material.BOOK_AND_QUILL));
         return  options;
+    }
+
+    public static Inventory TextInput(int TicketID) {
+        Inventory input = Bukkit.createInventory(null, InventoryType.ANVIL);
+        input.setItem(0, createItem("Answer for #" + TicketID, Material.PAPER));
+        return input;
     }
 
 }
