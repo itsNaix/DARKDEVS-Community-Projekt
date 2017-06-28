@@ -1,5 +1,6 @@
 package de.darkdevs.cp.listeners;
 
+import com.google.common.util.concurrent.AbstractScheduledService;
 import de.darkdevs.cp.utils.InventoryUtils;
 import de.darkdevs.cp.utils.support.SupportHandler;
 import de.darkdevs.cp.utils.var;
@@ -11,6 +12,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
+import org.bukkit.inventory.AnvilInventory;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -47,7 +49,7 @@ public class LSTinventory implements Listener {
                 }
                 if (item.getItemMeta().getDisplayName().equalsIgnoreCase("§lGet Message")) {
                     player.sendMessage(var.pr + "Ticket #§7§l" + SupportID + "§7 von§7§l " + SupportHandler.getName(SupportID) + "§7:");
-                    player.sendMessage( "§7\"" + SupportHandler.getQuestion(SupportID).substring(0, SupportHandler.getQuestion(SupportID).length() - 1) + "\"");
+                    player.sendMessage("§7\"" + SupportHandler.getQuestion(SupportID).substring(0, SupportHandler.getQuestion(SupportID).length() - 1) + "\"");
                 }
                 if (item.getItemMeta().getDisplayName().equalsIgnoreCase("§lAnswer")) {
                     player.sendMessage(var.err + "Zur Zeit in Entwicklung!");
@@ -56,12 +58,28 @@ public class LSTinventory implements Listener {
                 event.setCancelled(true);
 
             }
+
+            if (inventory.getName().equalsIgnoreCase("§lChoose Punishment")) {
+                event.setCancelled(true);
+                if (item.getItemMeta().getDisplayName().equalsIgnoreCase("§4Ban")) {
+                    player.closeInventory();
+                    Inventory inv = InventoryUtils.reasonInput();
+                    player.openInventory(inv);
+                } else if (item.getItemMeta().getDisplayName().equalsIgnoreCase("§9Mute")) {
+                }
+            }
+
+            if (inventory.getName().equalsIgnoreCase("repairing") && inventory.getType() == InventoryType.ANVIL) {
+                Bukkit.broadcastMessage(item.getItemMeta().getDisplayName());
+                player.closeInventory();
+            }
+
         } catch (Exception ex) {
             ex.printStackTrace();
         }
 
+    }
+
 
 
     }
-
-}

@@ -8,6 +8,7 @@ import de.darkdevs.cp.listeners.LSTinventory;
 import de.darkdevs.cp.listeners.LSTjoin;
 import de.darkdevs.cp.listeners.LSTquit;
 import de.darkdevs.cp.utils.MySQL;
+import de.darkdevs.cp.utils.punishment.PunishmentGUI;
 import de.darkdevs.cp.utils.support.SupportHandler;
 import de.darkdevs.cp.utils.var;
 import org.bukkit.Bukkit;
@@ -50,6 +51,7 @@ public class Main extends JavaPlugin {
         this.getCommand("münzen").setExecutor(new CMDmünzen());
         this.getCommand("rank").setExecutor(new CMDrank());
         this.getCommand("support").setExecutor(new CMDsupport());
+        this.getCommand("punish").setExecutor(new PunishmentGUI());
 
         PluginManager pm = Bukkit.getPluginManager();
         pm.registerEvents(new LSTjoin(), getPlugin());

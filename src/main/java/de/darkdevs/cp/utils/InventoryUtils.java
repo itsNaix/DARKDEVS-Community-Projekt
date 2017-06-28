@@ -23,6 +23,14 @@ public class InventoryUtils {
         return itemStack;
     }
 
+    public static ItemStack createItem(String name, Material material, int subID){
+        ItemStack itemStack = new ItemStack(material);
+        ItemMeta itemMeta = itemStack.getItemMeta();
+        itemMeta.setDisplayName(name);
+        itemStack.setItemMeta(itemMeta);
+        return itemStack;
+    }
+
     public static Inventory SupportMenü() {
 
         try {
@@ -45,6 +53,42 @@ public class InventoryUtils {
 
     }
 
+    public static Inventory PunishmentMenu() {
+
+            Inventory inv = Bukkit.createInventory(null, 9*3, "§lChoose Punishment");
+            ItemStack ban = createItem("§4Ban", Material.DIAMOND_SWORD);
+            ItemMeta bm = ban.getItemMeta();
+            List<String> l = new ArrayList<>();
+            l.add("");
+            bm.setLore(l);
+            ban.setItemMeta(bm);
+            ItemStack kick = createItem("§cKick", Material.IRON_SWORD);
+            ItemMeta km = kick.getItemMeta();
+            km.setLore(l);
+            kick.setItemMeta(km);
+            ItemStack mute = createItem("§9Mute", Material.BARRIER);
+            ItemStack luecke = createItem("", Material.STAINED_GLASS_PANE);
+            for(int i = 0; i < 9*3; i++) {
+                switch (i) {
+                    case 10:
+                        inv.setItem(i, ban);
+                        break;
+                    case 13:
+                        inv.setItem(i, kick);
+                        break;
+                    case 16:
+                        inv.setItem(i, mute);
+                        break;
+                    default:
+                        inv.setItem(i, luecke);
+                        break;
+                }
+        }
+            return inv;
+
+    }
+
+
     public static Inventory TicketOptions(int TicketID) {
         Inventory options = Bukkit.createInventory(null, 9, "§lTicket #" + TicketID);
         options.setItem(8, createItem("§c§lClose Ticket", Material.BARRIER));
@@ -57,6 +101,23 @@ public class InventoryUtils {
         Inventory input = Bukkit.createInventory(null, InventoryType.ANVIL);
         input.setItem(0, createItem("Answer for #" + TicketID, Material.PAPER));
         return input;
+    }
+
+    public static Inventory reasonInput() {
+        Inventory inv = Bukkit.createInventory(null, InventoryType.ANVIL);
+        ItemStack i = createItem("Reason", Material.PAPER);
+        inv.addItem(i);
+        return inv;
+    }
+
+    public static void increaseAmount(ItemStack i, int amount) {
+        int current = i.getAmount();
+        i.setAmount(current + amount);
+    }
+
+    public static void decreaseAmount(ItemStack i, int amount) {
+        int current = i.getAmount();
+        i.setAmount(current - amount);
     }
 
 }

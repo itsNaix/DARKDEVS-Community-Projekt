@@ -32,11 +32,9 @@ public class BanManager {
     }
 
     public static boolean isBanned(String uuid) {
-        ResultSet rs = MySQL.getResult("SELECT * FROM players_banned WHERE uuid='" + uuid + "'");
+        ResultSet rs = MySQL.getResult("SELECT banEnd FROM players_banned WHERE uuid='" + uuid + "'");
         try {
-            while(rs.next()) {
-                return rs != null;
-            }
+            return rs.next();
         } catch (SQLException e) {
             e.printStackTrace();
         }
