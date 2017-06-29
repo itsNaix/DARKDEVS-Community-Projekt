@@ -15,6 +15,12 @@ import org.bukkit.inventory.Inventory;
  */
 public class PunishmentGUI implements CommandExecutor {
 
+    /*
+
+    Usage: /punish <Player> (Reason)
+
+     */
+
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if(cmd.getName().equalsIgnoreCase("punish")) {

@@ -1,6 +1,7 @@
 package de.darkdevs.cp.listeners;
 
 import com.google.common.util.concurrent.AbstractScheduledService;
+import de.darkdevs.cp.main.Main;
 import de.darkdevs.cp.utils.InventoryUtils;
 import de.darkdevs.cp.utils.support.SupportHandler;
 import de.darkdevs.cp.utils.var;
@@ -19,6 +20,9 @@ import org.bukkit.inventory.meta.ItemMeta;
 import sun.security.krb5.internal.Ticket;
 
 import java.util.function.BiFunction;
+
+import static de.darkdevs.cp.utils.InventoryUtils.createItem;
+import static de.darkdevs.cp.utils.InventoryUtils.getDuration;
 
 public class LSTinventory implements Listener {
 
@@ -61,18 +65,106 @@ public class LSTinventory implements Listener {
 
             if (inventory.getName().equalsIgnoreCase("§lChoose Punishment")) {
                 event.setCancelled(true);
-                if (item.getItemMeta().getDisplayName().equalsIgnoreCase("§4Ban")) {
-                    player.closeInventory();
-                    Inventory inv = InventoryUtils.reasonInput();
-                    player.openInventory(inv);
-                } else if (item.getItemMeta().getDisplayName().equalsIgnoreCase("§9Mute")) {
+                try {
+                    if (item.getItemMeta().getDisplayName().equalsIgnoreCase("§4Ban")) {
+                        player.closeInventory();
+                        Inventory inv = InventoryUtils.punishTimeMenu();
+                        player.openInventory(inv);
+                    } else if (item.getItemMeta().getDisplayName().equalsIgnoreCase("§9Mute")) {
+                    }
+                } catch(NullPointerException e) {
+                    System.out.println("Schon wieder die komische NullPointerException");
                 }
             }
 
-            if (inventory.getName().equalsIgnoreCase("repairing") && inventory.getType() == InventoryType.ANVIL) {
-                Bukkit.broadcastMessage(item.getItemMeta().getDisplayName());
-                player.closeInventory();
-            }
+
+
+            if (inventory.getName().equalsIgnoreCase("§lChoose duration")) {
+                event.setCancelled(true);
+                try {
+                        if (item.getItemMeta().getDisplayName().equalsIgnoreCase("§a+1 Week")) {
+                            if (inventory.getItem(18).getType() == Material.THIN_GLASS) {
+                                inventory.setItem(18, InventoryUtils.createItem("§bWeeks", Material.STAINED_CLAY, (short) 14));
+                            } else {
+                                InventoryUtils.increaseAmount(inventory.getItem(18), 1);
+                            }
+                        } else if (item.getItemMeta().getDisplayName().equalsIgnoreCase("§a+1 Day")) {
+                            if (inventory.getItem(20).getType() == Material.THIN_GLASS) {
+                                inventory.setItem(20, InventoryUtils.createItem("§bDays", Material.STAINED_CLAY, (short) 6));
+                            } else {
+                                InventoryUtils.increaseAmount(inventory.getItem(20), 1);
+                            }
+                        } else if (item.getItemMeta().getDisplayName().equalsIgnoreCase("§a+1 Hour")) {
+                            if (inventory.getItem(22).getType() == Material.THIN_GLASS) {
+                                inventory.setItem(22, InventoryUtils.createItem("§bHours", Material.STAINED_CLAY, (short) 1));
+                            } else {
+                                InventoryUtils.increaseAmount(inventory.getItem(22), 1);
+                            }
+                        } else if (item.getItemMeta().getDisplayName().equalsIgnoreCase("§a+5 Minutes")) {
+                            if (inventory.getItem(24).getType() == Material.THIN_GLASS) {
+                                inventory.setItem(24, InventoryUtils.createItem("§bMinutes", Material.STAINED_CLAY, (short) 4));
+                                inventory.getItem(24).setAmount(5);
+                            } else {
+                                InventoryUtils.increaseAmount(inventory.getItem(24), 5);
+                            }
+                        } else if (item.getItemMeta().getDisplayName().equalsIgnoreCase("§a+5 Seconds")) {
+                            if (inventory.getItem(26).getType() == Material.THIN_GLASS) {
+                                inventory.setItem(26, InventoryUtils.createItem("§bSeconds", Material.STAINED_CLAY));
+                                inventory.getItem(26).setAmount(5);
+                            } else {
+                                InventoryUtils.increaseAmount(inventory.getItem(26), 5);
+                            }
+                        } else if (item.getItemMeta().getDisplayName().equalsIgnoreCase("§cPermanent")) {
+
+                        } else if (item.getItemMeta().getDisplayName().equalsIgnoreCase("§aDone")) {
+                            long duration = InventoryUtils.getDuration(inventory);
+                            player.closeInventory();
+                            player.sendMessage("Du hast die Duration " + duration + " eingestellt!");
+                        } else if (item.getItemMeta().getDisplayName().equalsIgnoreCase("§c-1 Week")) {
+                            if (!(inventory.getItem(18).getType() == Material.THIN_GLASS)) {
+                                if(inventory.getItem(18).getAmount() == 1) {
+                                    inventory.setItem(18, InventoryUtils.createItem("§bWeeks", Material.THIN_GLASS));
+                                } else {
+                                    InventoryUtils.decreaseAmount(inventory.getItem(18), 1);
+                                }
+                            }
+                        } else if (item.getItemMeta().getDisplayName().equalsIgnoreCase("§c-1 Day")) {
+                            if (!(inventory.getItem(20).getType() == Material.THIN_GLASS)) {
+                                if(inventory.getItem(20).getAmount() == 1) {
+                                    inventory.setItem(20, InventoryUtils.createItem("§bDays", Material.THIN_GLASS));
+                                } else {
+                                    InventoryUtils.decreaseAmount(inventory.getItem(20), 1);
+                                }
+                            }
+                        } else if (item.getItemMeta().getDisplayName().equalsIgnoreCase("§c-1 Hour")) {
+                            if (!(inventory.getItem(22).getType() == Material.THIN_GLASS)) {
+                                if (inventory.getItem(22).getAmount() == 1) {
+                                    inventory.setItem(22, InventoryUtils.createItem("§bHours", Material.THIN_GLASS));
+                                } else {
+                                }
+                                InventoryUtils.decreaseAmount(inventory.getItem(22), 1);
+                            }
+                        } else if (item.getItemMeta().getDisplayName().equalsIgnoreCase("§c-5 Minutes")) {
+                            if (!(inventory.getItem(24).getType() == Material.THIN_GLASS)) {
+                                if (inventory.getItem(24).getAmount() == 5) {
+                                    inventory.setItem(24, InventoryUtils.createItem("§bMinutes", Material.THIN_GLASS));
+                                } else {
+                                InventoryUtils.decreaseAmount(inventory.getItem(24), 5);
+                            }
+                            }
+                        } else if (item.getItemMeta().getDisplayName().equalsIgnoreCase("§c-5 Seconds")) {
+                            if (!(inventory.getItem(26).getType() == Material.THIN_GLASS)) {
+                                if (inventory.getItem(26).getAmount() == 5) {
+                                    inventory.setItem(26, InventoryUtils.createItem("§bSeconds", Material.THIN_GLASS));
+                                } else {
+                                }
+                                InventoryUtils.decreaseAmount(inventory.getItem(26), 5);
+                            }
+                        }
+                } catch(NullPointerException e) {
+                    System.out.println("NullPointer Kack Lol unwichtig");
+                }
+             }
 
         } catch (Exception ex) {
             ex.printStackTrace();

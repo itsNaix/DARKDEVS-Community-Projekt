@@ -3,11 +3,13 @@ package de.darkdevs.cp.utils;
 import de.darkdevs.cp.utils.support.SupportHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.lang.reflect.Method;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -23,8 +25,8 @@ public class InventoryUtils {
         return itemStack;
     }
 
-    public static ItemStack createItem(String name, Material material, int subID){
-        ItemStack itemStack = new ItemStack(material);
+    public static ItemStack createItem(String name, Material material, short subID){
+        ItemStack itemStack = new ItemStack(material, 1, subID);
         ItemMeta itemMeta = itemStack.getItemMeta();
         itemMeta.setDisplayName(name);
         itemStack.setItemMeta(itemMeta);
@@ -53,7 +55,7 @@ public class InventoryUtils {
 
     }
 
-    public static Inventory PunishmentMenu() {
+    public static Inventory PunishmentMenu(Player p) {
 
             Inventory inv = Bukkit.createInventory(null, 9*3, "§lChoose Punishment");
             ItemStack ban = createItem("§4Ban", Material.DIAMOND_SWORD);
@@ -67,7 +69,7 @@ public class InventoryUtils {
             km.setLore(l);
             kick.setItemMeta(km);
             ItemStack mute = createItem("§9Mute", Material.BARRIER);
-            ItemStack luecke = createItem("", Material.STAINED_GLASS_PANE);
+            ItemStack luecke = createItem("", Material.STAINED_GLASS_PANE, (short) 7);
             for(int i = 0; i < 9*3; i++) {
                 switch (i) {
                     case 10:
@@ -88,6 +90,122 @@ public class InventoryUtils {
 
     }
 
+    public static Inventory punishTimeMenu() {
+
+        Inventory inv = Bukkit.createInventory(null, 9*6, "§lChoose duration");
+        List<String> l = new ArrayList<>();
+        l.add("§c§l§nSpamming the button leads to glitches!");
+        ItemStack weeks = createItem("§bWeeks", Material.THIN_GLASS);
+        ItemStack weekUp = createItem("§a+1 Week", Material.STONE_BUTTON);
+        ItemMeta iwu = weekUp.getItemMeta();
+        iwu.setLore(l);
+        weekUp.setItemMeta(iwu);
+        ItemStack weekDown = createItem("§c-1 Week", Material.STONE_BUTTON);
+        ItemMeta iwd = weekDown.getItemMeta();
+        iwd.setLore(l);
+        weekDown.setItemMeta(iwd);
+        ItemStack days = createItem("§bDays", Material.THIN_GLASS);
+        ItemStack daysUp = createItem("§a+1 Day", Material.STONE_BUTTON);
+        ItemMeta idu = daysUp.getItemMeta();
+        idu.setLore(l);
+        daysUp.setItemMeta(idu);
+        ItemStack daysDown = createItem("§c-1 Day", Material.STONE_BUTTON);
+        ItemMeta idd = daysDown.getItemMeta();
+        idd.setLore(l);
+        daysDown.setItemMeta(idd);
+        ItemStack hours = createItem("§bHours", Material.THIN_GLASS);
+        ItemStack hoursUp = createItem("§a+1 Hour", Material.STONE_BUTTON);
+        ItemMeta ihu = hoursUp.getItemMeta();
+        ihu.setLore(l);
+        hoursUp.setItemMeta(ihu);
+        ItemStack hoursDown = createItem("§c-1 Hour", Material.STONE_BUTTON);
+        ItemMeta ihd = hoursDown.getItemMeta();
+        ihd.setLore(l);
+        hoursDown.setItemMeta(ihd);
+        ItemStack minutes = createItem("§bMinutes", Material.THIN_GLASS);
+        ItemStack minutesUp = createItem("§a+5 Minutes", Material.STONE_BUTTON);
+        ItemMeta imu = minutesUp.getItemMeta();
+        imu.setLore(l);
+        minutesUp.setItemMeta(imu);
+        ItemStack minutesDown = createItem("§c-5 Minutes", Material.STONE_BUTTON);
+        ItemMeta imd = minutesDown.getItemMeta();
+        imd.setLore(l);
+        minutesDown.setItemMeta(imd);
+        ItemStack seconds = createItem("§bSeconds", Material.THIN_GLASS);
+        ItemStack secondsUp = createItem("§a+5 Seconds", Material.STONE_BUTTON);
+        ItemMeta isu = secondsUp.getItemMeta();
+        isu.setLore(l);
+        secondsUp.setItemMeta(isu);
+        ItemStack secondsDown = createItem("§c-5 Seconds", Material.STONE_BUTTON);
+        ItemMeta isd = secondsDown.getItemMeta();
+        isd.setLore(l);
+        secondsDown.setItemMeta(isd);
+        ItemStack unlimited = createItem("§cPermanent", Material.WOOL, (short) 14);
+        ItemStack done = createItem("§aDone", Material.WOOL, (short) 5);
+        ItemStack luecke = createItem("", Material.STAINED_GLASS_PANE, (short) 7);
+
+        for(int i = 0; i < 9*6; i++) {
+            switch(i) {
+                case 9:
+                    inv.setItem(i, weekUp);
+                    break;
+                case 11:
+                    inv.setItem(i, daysUp);
+                    break;
+                case 13:
+                    inv.setItem(i, hoursUp);
+                    break;
+                case 15:
+                    inv.setItem(i, minutesUp);
+                    break;
+                case 17:
+                    inv.setItem(i, secondsUp);
+                    break;
+                case 18:
+                    inv.setItem(i, weeks);
+                    break;
+                case 20:
+                    inv.setItem(i, days);
+                    break;
+                case 22:
+                    inv.setItem(i, hours);
+                    break;
+                case 24:
+                    inv.setItem(i, minutes);
+                    break;
+                case 26:
+                    inv.setItem(i, seconds);
+                    break;
+                case 27:
+                    inv.setItem(i, weekDown);
+                    break;
+                case 29:
+                    inv.setItem(i, daysDown);
+                    break;
+                case 31:
+                    inv.setItem(i, hoursDown);
+                    break;
+                case 33:
+                    inv.setItem(i, minutesDown);
+                    break;
+                case 35:
+                    inv.setItem(i, secondsDown);
+                    break;
+                case 45:
+                    inv.setItem(i, unlimited);
+                    break;
+                case 53:
+                    inv.setItem(i, done);
+                    break;
+                default:
+                    inv.setItem(i, luecke);
+                    break;
+            }
+        }
+
+        return inv;
+    }
+
 
     public static Inventory TicketOptions(int TicketID) {
         Inventory options = Bukkit.createInventory(null, 9, "§lTicket #" + TicketID);
@@ -103,13 +221,6 @@ public class InventoryUtils {
         return input;
     }
 
-    public static Inventory reasonInput() {
-        Inventory inv = Bukkit.createInventory(null, InventoryType.ANVIL);
-        ItemStack i = createItem("Reason", Material.PAPER);
-        inv.addItem(i);
-        return inv;
-    }
-
     public static void increaseAmount(ItemStack i, int amount) {
         int current = i.getAmount();
         i.setAmount(current + amount);
@@ -117,7 +228,46 @@ public class InventoryUtils {
 
     public static void decreaseAmount(ItemStack i, int amount) {
         int current = i.getAmount();
-        i.setAmount(current - amount);
+        if(current - amount < 1) {
+            return;
+        } else {
+            i.setAmount(current - amount);
+        }
+    }
+
+    public static long getDuration(Inventory inv) {
+        long weeks;
+        long days;
+        long hours;
+        long minutes;
+        long seconds;
+        if(inv.getItem(18).getType() == Material.THIN_GLASS) {
+            weeks = 0;
+        } else {
+            weeks = inv.getItem(18).getAmount() * 7 * 24 * 60 * 60;
+        }
+        if(inv.getItem(20).getType() == Material.THIN_GLASS) {
+            days = 0;
+        } else {
+            days = inv.getItem(20).getAmount() * 24 * 60 * 60;
+        }
+        if(inv.getItem(22).getType() == Material.THIN_GLASS) {
+            hours = 0;
+        } else {
+            hours = inv.getItem(22).getAmount() * 60 * 60;
+        }
+        if(inv.getItem(24).getType() == Material.THIN_GLASS) {
+            minutes = 0;
+        } else {
+            minutes = inv.getItem(24).getAmount() * 60;
+        }
+        if(inv.getItem(26).getType() == Material.THIN_GLASS) {
+            seconds = 0;
+        } else {
+            seconds = inv.getItem(26).getAmount();
+        }
+        long duration = (weeks + days + hours + minutes + seconds) * 1000;
+        return duration;
     }
 
 }
