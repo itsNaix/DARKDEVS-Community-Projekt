@@ -3,6 +3,7 @@ package de.darkdevs.cp.listeners;
 import com.google.common.util.concurrent.AbstractScheduledService;
 import de.darkdevs.cp.main.Main;
 import de.darkdevs.cp.utils.InventoryUtils;
+import de.darkdevs.cp.utils.punishment.PunishmentGUI;
 import de.darkdevs.cp.utils.support.SupportHandler;
 import de.darkdevs.cp.utils.var;
 import org.bukkit.Bukkit;
@@ -21,8 +22,7 @@ import sun.security.krb5.internal.Ticket;
 
 import java.util.function.BiFunction;
 
-import static de.darkdevs.cp.utils.InventoryUtils.createItem;
-import static de.darkdevs.cp.utils.InventoryUtils.getDuration;
+import static de.darkdevs.cp.utils.InventoryUtils.*;
 
 public class LSTinventory implements Listener {
 
@@ -68,9 +68,13 @@ public class LSTinventory implements Listener {
                 try {
                     if (item.getItemMeta().getDisplayName().equalsIgnoreCase("§4Ban")) {
                         player.closeInventory();
+                        setPunishment("ban");
                         Inventory inv = InventoryUtils.punishTimeMenu();
                         player.openInventory(inv);
                     } else if (item.getItemMeta().getDisplayName().equalsIgnoreCase("§9Mute")) {
+                        setPunishment("mute");
+                    } else if (item.getItemMeta().getDisplayName().equalsIgnoreCase("§cKick")) {
+                        setPunishment("kick");
                     }
                 } catch(NullPointerException e) {
                     System.out.println("Schon wieder die komische NullPointerException");
@@ -119,7 +123,10 @@ public class LSTinventory implements Listener {
                         } else if (item.getItemMeta().getDisplayName().equalsIgnoreCase("§aDone")) {
                             long duration = InventoryUtils.getDuration(inventory);
                             player.closeInventory();
-                            player.sendMessage("Du hast die Duration " + duration + " eingestellt!");
+                            if(getPunishment().equalsIgnoreCase("ban")) {
+                                Bukkit.broadcastMessage("Du hast " + PunishmentGUI.getPlayername() + " wegen " + PunishmentGUI.getReason() + " für " + duration + " Milisekunden gebannt");
+                            } else {
+                            }
                         } else if (item.getItemMeta().getDisplayName().equalsIgnoreCase("§c-1 Week")) {
                             if (!(inventory.getItem(18).getType() == Material.THIN_GLASS)) {
                                 if(inventory.getItem(18).getAmount() == 1) {

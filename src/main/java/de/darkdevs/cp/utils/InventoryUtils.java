@@ -3,19 +3,27 @@ package de.darkdevs.cp.utils;
 import de.darkdevs.cp.utils.support.SupportHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.lang.reflect.Method;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class InventoryUtils {
+
+    private static String punishment;
+
+    public static String getPunishment() {
+        return punishment;
+    }
+
+    public static void setPunishment(String punishment) {
+        InventoryUtils.punishment = punishment;
+    }
 
     public static ItemStack createItem(String name, Material material){
         ItemStack itemStack = new ItemStack(material);
@@ -55,7 +63,7 @@ public class InventoryUtils {
 
     }
 
-    public static Inventory PunishmentMenu(Player p) {
+    public static Inventory PunishmentMenu() {
 
             Inventory inv = Bukkit.createInventory(null, 9*3, "§lChoose Punishment");
             ItemStack ban = createItem("§4Ban", Material.DIAMOND_SWORD);
