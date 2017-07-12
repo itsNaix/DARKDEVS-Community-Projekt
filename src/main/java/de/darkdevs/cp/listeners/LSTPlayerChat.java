@@ -1,5 +1,6 @@
 package de.darkdevs.cp.listeners;
 
+import de.darkdevs.cp.utils.punishment.MuteManager;
 import de.darkdevs.cp.utils.ranks.RankHandler;
 import de.darkdevs.cp.utils.var;
 import org.bukkit.event.EventHandler;
@@ -13,14 +14,27 @@ public class LSTPlayerChat implements Listener {
 
     @EventHandler
     public void onPlayerChat(AsyncPlayerChatEvent e) {
-        //Verarbeite Platzhalter!
+        //Check ob Player gemuted
+        String uuid = e.getPlayer().getUniqueId().toString();
+        if(MuteManager.isMuted(uuid)) {
+            e.setCancelled(true);
+            e.getPlayer().sendMessage("§cDu bist gemuted!\n" +
+                    "\n" +
+                    "§3Grund: §e" + MuteManager.getReason(uuid) + "\n" +
+                    "§3Verbleibende Zeit: §e" + MuteManager.getRemainingTime(uuid) + "\n" +
+                    "§3Stelle einen Einspruch auf unserem Discord!");
+        } else {
 
-        String newMessage = var.chatFormat;
-        newMessage = newMessage.replace("%rankColor%", RankHandler.getRankColor(e.getPlayer()));
-        newMessage = newMessage.replace("%RANG%", RankHandler.getRankName(e.getPlayer()));
-        newMessage = newMessage.replace("%PLAYERNAME%", e.getPlayer().getDisplayName());
-        newMessage = newMessage.replace("%MESSAGE%", e.getMessage());
 
-        e.setFormat(newMessage.trim());
+            //Verarbeite Platzhalter!
+
+            String newMessage = var.chatFormat;
+            newMessage = newMessage.replace("%rankColor%", RankHandler.getRankColor(e.getPlayer()));
+            newMessage = newMessage.replace("%RANG%", RankHandler.getRankName(e.getPlayer()));
+            newMessage = newMessage.replace("%PLAYERNAME%", e.getPlayer().getDisplayName());
+            newMessage = newMessage.replace("%MESSAGE%", e.getMessage());
+
+            e.setFormat(newMessage.trim());
+        }
     }
 }
