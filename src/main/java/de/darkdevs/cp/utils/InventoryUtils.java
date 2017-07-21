@@ -274,7 +274,7 @@ public class InventoryUtils {
         } else {
             seconds = inv.getItem(26).getAmount();
         }
-        long duration = (weeks + days + hours + minutes + seconds) * 1000;
+        long duration = (weeks + days + hours + minutes + seconds);
         return duration;
     }
 

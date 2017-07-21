@@ -1,6 +1,7 @@
 package de.darkdevs.cp.listeners;
 
 import de.darkdevs.cp.utils.MySQL;
+import de.darkdevs.cp.utils.punishment.BanManager;
 import de.darkdevs.cp.utils.ranks.RankHandler;
 import de.darkdevs.cp.utils.support.SupportHandler;
 import de.darkdevs.cp.utils.var;
@@ -21,6 +22,7 @@ public class LSTjoin implements Listener {
     public void onJoin(PlayerJoinEvent e) {
         Player p = e.getPlayer();
         String uuid = p.getUniqueId().toString();
+        BanManager.unban(uuid);
 
         String joinMessage = var.joinMessage;
         joinMessage = joinMessage.replace("%rankColor%", RankHandler.getRankColor(p));

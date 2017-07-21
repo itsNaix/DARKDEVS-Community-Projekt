@@ -3,6 +3,7 @@ package de.darkdevs.cp.listeners;
 import com.google.common.util.concurrent.AbstractScheduledService;
 import de.darkdevs.cp.main.Main;
 import de.darkdevs.cp.utils.InventoryUtils;
+import de.darkdevs.cp.utils.punishment.BanManager;
 import de.darkdevs.cp.utils.punishment.PunishmentGUI;
 import de.darkdevs.cp.utils.support.SupportHandler;
 import de.darkdevs.cp.utils.var;
@@ -124,6 +125,8 @@ public class LSTinventory implements Listener {
                             long duration = InventoryUtils.getDuration(inventory);
                             player.closeInventory();
                             if(getPunishment().equalsIgnoreCase("ban")) {
+                                String uuid = Bukkit.getPlayer(PunishmentGUI.getPlayername()).getUniqueId().toString();
+                                BanManager.ban(uuid, PunishmentGUI.getPlayername(), PunishmentGUI.getReason(), getDuration(inventory));
                                 Bukkit.broadcastMessage("Du hast " + PunishmentGUI.getPlayername() + " wegen " + PunishmentGUI.getReason() + " für " + duration + " Milisekunden gebannt");
                             } else {
                             }

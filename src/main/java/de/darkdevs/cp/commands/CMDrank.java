@@ -28,7 +28,7 @@ public class CMDrank implements CommandExecutor {
                 }
                 Player p = (Player) sender;
                 if (args.length == 0) {
-                    p.sendMessage(var.pr + "§7Bitte gib §9/hilfe §7ein, um Hilfe für diesen Befehl zu bekommen!");
+                    p.sendMessage(var.helpMessage);
                 }
 
                 if (args.length == 1) {

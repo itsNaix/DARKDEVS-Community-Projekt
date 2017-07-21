@@ -3,10 +3,7 @@ package de.darkdevs.cp.main;
 import de.darkdevs.cp.commands.CMDmünzen;
 import de.darkdevs.cp.commands.CMDrank;
 import de.darkdevs.cp.commands.CMDsupport;
-import de.darkdevs.cp.listeners.LSTPlayerChat;
-import de.darkdevs.cp.listeners.LSTinventory;
-import de.darkdevs.cp.listeners.LSTjoin;
-import de.darkdevs.cp.listeners.LSTquit;
+import de.darkdevs.cp.listeners.*;
 import de.darkdevs.cp.utils.MySQL;
 import de.darkdevs.cp.utils.punishment.PunishmentGUI;
 import de.darkdevs.cp.utils.support.SupportHandler;
@@ -58,6 +55,7 @@ public class Main extends JavaPlugin {
         pm.registerEvents(new LSTquit(), getPlugin());
         pm.registerEvents(new LSTPlayerChat(), getPlugin());
         pm.registerEvents(new LSTinventory(), getPlugin());
+        pm.registerEvents(new LSTlogin(), getPlugin());
 
     }
 

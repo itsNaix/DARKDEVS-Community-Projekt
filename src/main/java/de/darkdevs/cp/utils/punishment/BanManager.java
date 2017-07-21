@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class BanManager {
 
-    public static void ban(String uuid, String name, String reason, int seconds) {
+    public static void ban(String uuid, String name, String reason, long seconds) {
         long current = System.currentTimeMillis();
         long millis = seconds * 1000;
         long end = current + millis;
@@ -24,6 +24,25 @@ public class BanManager {
                     "§3Grund: §e" + getReason(uuid) + "\n" +
                     "§3Verbleibende Zeit: §e" + getRemainingTime(uuid) + "\n" +
                     "§3Stelle einen Entbannungsantrag auf unserem Discord!");
+        }
+        if(seconds == -1) {
+            end = -1;
+        } else {
+            current = System.currentTimeMillis();
+            millis = seconds * 1000;
+            end = current + millis;
+        }
+        MySQL.execute("INSERT INTO players_banned (name, uuid, banEnd, reason) VALUES ('" + name + "','" + uuid + "','" + end + "','" + reason + "')");
+        if(Bukkit.getPlayer(name) != null) {
+            Bukkit.getPlayer(name).kickPlayer("§8§lDarkDevs Community-Server§r\n" +
+                    "\n" +
+                    "§c§lDu wurdest vom Server gebannt!§r\n" +
+                    "\n" +
+                    "§7Grund: §9" + BanManager.getReason(uuid) + "\n" +
+                    "§7Verbleibende Zeit: §9" + BanManager.getRemainingTime(uuid) +"\n" +
+                    "\n" +
+                    "§7Du hast ein Problem mit dieser Entscheidung?\n" +
+                    "§9§nKomme mit uns ins Gespräch auf unserem Discord!");
         }
     }
 
@@ -79,6 +98,40 @@ public class BanManager {
     }
 
     public static String getRemainingTime(String uuid) {
-        return "";
+        long current = System.currentTimeMillis();
+        long end = getEnd(uuid);
+        if(end == -1) {
+            return "§9Permanent";
+        }
+        long millis = end - current;
+
+        long seconds = 0;
+        long minutes = 0;
+        long hours = 0;
+        long days = 0;
+        long weeks = 0;
+        while(millis > 1000) {
+            millis -= 1000;
+            seconds++;
+        }
+        while(seconds > 60) {
+            seconds -= 60;
+            minutes++;
+        }
+        while(minutes > 60) {
+            minutes -= 60;
+            hours++;
+        }
+        while(hours > 24) {
+            hours = 24;
+            days++;
+        }
+        while(days > 7) {
+            days -= 7;
+            weeks++;
+        }
+
+
+        return "§9" + weeks + " Woche(n) " + days + " Tag(e) " + hours + " Stunde(n) " + minutes + " Minute(n) " + seconds + " Sekunde(n)";
     }
 }

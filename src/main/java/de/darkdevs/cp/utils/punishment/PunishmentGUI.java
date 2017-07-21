@@ -24,6 +24,7 @@ public class PunishmentGUI implements CommandExecutor {
 
     private static String playername;
     private static String reason;
+    private static boolean isMuted = false;
 
     public static String getPlayername() {
         return playername;

@@ -13,6 +13,16 @@ import java.util.List;
  */
 public class var {
 
+    /*
+
+    FARBEN DIE VERWENDET WERDEN SOLLEN:
+    §8 - DUNKELGRAU
+    §7 - HELLGRAU
+    §9 - BLAU
+
+
+     */
+
     public static String pr = "§8[§7DarkDevs§8]§7 ";
     public static String err = pr + "§c";
     public static String invalidUsage = err + "Invalid Command Usage!";
@@ -38,4 +48,6 @@ public class var {
     public static String quitMessage = "§8[§c-§8] §%rankColor%%PLAYERNAME%";
 
     public static String chatFormat = "§%rankColor%%RANG% §8| §7%PLAYERNAME% §8>> §f%MESSAGE%";
+
+    public static String helpMessage = pr + "§7Bitte gib §9/hilfe §7ein, um Hilfe für diesen Befehl zu bekommen!";
 }
