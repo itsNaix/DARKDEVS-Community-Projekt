@@ -16,20 +16,10 @@ public class BanManager {
     public static void ban(String uuid, String name, String reason, long seconds) {
         long current = System.currentTimeMillis();
         long millis = seconds * 1000;
-        long end = current + millis;
-        MySQL.execute("INSERT INTO players_banned (name, uuid, banEnd, reason) VALUES ('" + name + "','" + uuid + "','" + end + "','" + reason + "')");
-        if(Bukkit.getPlayer(name) != null) {
-            Bukkit.getPlayer(name).kickPlayer("§cDu wurdest vom Server gebannt!\n" +
-                    "\n" +
-                    "§3Grund: §e" + getReason(uuid) + "\n" +
-                    "§3Verbleibende Zeit: §e" + getRemainingTime(uuid) + "\n" +
-                    "§3Stelle einen Entbannungsantrag auf unserem Discord!");
-        }
+        long end;
         if(seconds == -1) {
             end = -1;
         } else {
-            current = System.currentTimeMillis();
-            millis = seconds * 1000;
             end = current + millis;
         }
         MySQL.execute("INSERT INTO players_banned (name, uuid, banEnd, reason) VALUES ('" + name + "','" + uuid + "','" + end + "','" + reason + "')");
@@ -131,7 +121,12 @@ public class BanManager {
             weeks++;
         }
 
-
+        System.out.println(millis);
+        System.out.println(weeks);
+        System.out.println(days);
+        System.out.println(hours);
+        System.out.println(minutes);
+        System.out.println(seconds);
         return "§9" + weeks + " Woche(n) " + days + " Tag(e) " + hours + " Stunde(n) " + minutes + " Minute(n) " + seconds + " Sekunde(n)";
     }
 }

@@ -126,7 +126,7 @@ public class LSTinventory implements Listener {
                             player.closeInventory();
                             if(getPunishment().equalsIgnoreCase("ban")) {
                                 String uuid = Bukkit.getPlayer(PunishmentGUI.getPlayername()).getUniqueId().toString();
-                                BanManager.ban(uuid, PunishmentGUI.getPlayername(), PunishmentGUI.getReason(), getDuration(inventory));
+                                BanManager.ban(uuid, PunishmentGUI.getPlayername(), PunishmentGUI.getReason(), duration);
                                 Bukkit.broadcastMessage("Du hast " + PunishmentGUI.getPlayername() + " wegen " + PunishmentGUI.getReason() + " für " + duration + " Milisekunden gebannt");
                             } else {
                             }
