@@ -1,6 +1,7 @@
 package de.darkdevs.cp.utils;
 
 import de.darkdevs.cp.utils.ranks.RankHandler;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 import java.sql.ResultSet;
@@ -29,7 +30,7 @@ public class var {
     public static List<String> notReceived = new ArrayList<>();
 
     public static boolean userExists(Player p, String table) {
-        if(p != null) {
+       // if(p != null) {
             ResultSet rs = MySQL.getResult("SELECT * FROM " + table + " WHERE uuid ='" + p.getUniqueId() + "'");
             try {
                 if (rs.next()) {
@@ -40,7 +41,23 @@ public class var {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-        }
+       // }
+        return false;
+    }
+
+    public static boolean userExists(OfflinePlayer p, String table) {
+        //if(p != null) {
+            ResultSet rs = MySQL.getResult("SELECT * FROM " + table + " WHERE uuid ='" + p.getUniqueId() + "'");
+            try {
+                if (rs.next()) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+      //  }
         return false;
     }
 

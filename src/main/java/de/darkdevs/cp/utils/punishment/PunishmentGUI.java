@@ -1,7 +1,9 @@
 package de.darkdevs.cp.utils.punishment;
 
 import de.darkdevs.cp.utils.InventoryUtils;
+import de.darkdevs.cp.utils.var;
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -55,7 +57,13 @@ public class PunishmentGUI implements CommandExecutor {
             }
         } else if(cmd.getName().equalsIgnoreCase("punishments")) {
             Player p = (Player) sender;
-            setPlayername(args[0]);
+            Player target = Bukkit.getPlayerExact(args[0]);
+            if(var.userExists(target, "players_rank")) {
+                Inventory inv = InventoryUtils.punishmentsMenu(target);
+                p.openInventory(inv);
+            } else {
+                p.sendMessage(var.err + "Dieser Spieler existiert nicht!");
+            }
         }
         return false;
     }

@@ -16,3 +16,7 @@
          description: Verwalte die Ränge
      support:
          description: Support System
+     punish:
+         description: Punishment System
+     punishments:
+         description: Punishment System

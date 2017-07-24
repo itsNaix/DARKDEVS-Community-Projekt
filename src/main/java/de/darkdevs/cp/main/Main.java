@@ -49,6 +49,7 @@ public class Main extends JavaPlugin {
         this.getCommand("rank").setExecutor(new CMDrank());
         this.getCommand("support").setExecutor(new CMDsupport());
         this.getCommand("punish").setExecutor(new PunishmentGUI());
+        this.getCommand("punishments").setExecutor(new PunishmentGUI());
 
         PluginManager pm = Bukkit.getPluginManager();
         pm.registerEvents(new LSTjoin(), getPlugin());

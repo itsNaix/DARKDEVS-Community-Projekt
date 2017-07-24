@@ -88,6 +88,22 @@ public class LSTinventory implements Listener {
                 }
             }
 
+            if(inventory.getName().startsWith("Punishments")) {
+                event.setCancelled(true);
+                String[] title = inventory.getName().split(" ");
+                String playername = title[1];
+                Player target = Bukkit.getPlayer(playername);
+                if(item.getItemMeta().getDisplayName().equalsIgnoreCase("§4Banned")) {
+                    if(var.userExists(target, "players_rank")) {
+                        player.closeInventory();
+                        Inventory inv = InventoryUtils.punishmentsMenu(target);
+                        player.openInventory(inv);
+                    } else {
+                        player.sendMessage(var.err + "Dieser Spieler existiert nicht!");
+                    }
+                }
+            }
+
 
 
             if (inventory.getName().equalsIgnoreCase("§lChoose duration")) {

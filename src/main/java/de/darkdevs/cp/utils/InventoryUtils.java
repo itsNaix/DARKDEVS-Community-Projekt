@@ -1,8 +1,11 @@
 package de.darkdevs.cp.utils;
 
+import de.darkdevs.cp.utils.punishment.BanManager;
+import de.darkdevs.cp.utils.punishment.MuteManager;
 import de.darkdevs.cp.utils.support.SupportHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -96,6 +99,105 @@ public class InventoryUtils {
         }
             return inv;
 
+    }
+
+    public static Inventory punishmentsMenu(Player p) {
+        String uuid = p.getUniqueId().toString();
+        String playername = p.getDisplayName();
+
+        Inventory inv = Bukkit.createInventory(null, 9*3, "Punishments " + playername);
+        ItemStack banned;
+        ItemStack muted;
+        ItemStack luecke = createItem("", Material.STAINED_GLASS_PANE, (short) 7);
+        ItemStack notpunished = luecke;
+        if(BanManager.isBanned(uuid)) {
+            banned = createItem("§4Banned", Material.DIAMOND_SWORD);
+            ItemMeta im = banned.getItemMeta();
+            List<String> l = new ArrayList<>();
+            l.add("§c§nClick here for more information!");
+            im.setLore(l);
+            banned.setItemMeta(im);
+        } else {
+            banned = luecke;
+            notpunished = createItem("§cPlayer has not received any punishment!", Material.SLIME_BALL);
+        }
+        if(MuteManager.isMuted(uuid)) {
+            muted = createItem("§9Muted", Material.BARRIER);
+            ItemMeta im = muted.getItemMeta();
+            List<String> l = new ArrayList<>();
+            l.add("§c§nClick here for more information!");
+            im.setLore(l);
+            muted.setItemMeta(im);
+        } else {
+            muted = luecke;
+            notpunished = createItem("§cPlayer has not received any punishment!", Material.SLIME_BALL);
+        }
+
+        for(int i = 0; i < 9*3; i++) {
+            switch (i) {
+                case 11:
+                    if(MuteManager.isMuted(uuid)) {
+                        inv.setItem(i, banned);
+                    } else {
+                        inv.setItem(i, luecke);
+                    }
+                    break;
+                case 13:
+                    if(BanManager.isBanned(uuid) && !MuteManager.isMuted(uuid)) {
+                        inv.setItem(i, banned);
+                    } else if(!BanManager.isBanned(uuid) && MuteManager.isMuted(uuid)) {
+                        inv.setItem(i, muted);
+                    } else {
+                        inv.setItem(i, notpunished);
+                    }
+                    break;
+                case 15:
+                    if(BanManager.isBanned(uuid)) {
+                        inv.setItem(i, muted);
+                    } else {
+                        inv.setItem(i, luecke);
+                    }
+                    break;
+                default:
+                    inv.setItem(i, luecke);
+                    break;
+            }
+        }
+
+        return inv;
+    }
+
+    public static Inventory bannedMenu(Player p) {
+        String uuid = p.getUniqueId().toString();
+        String playername = p.getDisplayName();
+            Inventory inv = Bukkit.createInventory(null, 9, "Ban-Info " + playername);
+
+            ItemStack reason = createItem("§7Reason", Material.WALL_SIGN);
+            ItemMeta rm = reason.getItemMeta();
+            List<String> r = new ArrayList<>();
+            r.add("§9" + BanManager.getReason(uuid));
+            rm.setLore(r);
+            reason.setItemMeta(rm);
+
+            ItemStack time = createItem("§7Remaining Time", Material.WATCH);
+            ItemMeta tm = time.getItemMeta();
+            List<String> t = new ArrayList<>();
+            t.add("§9" + BanManager.getRemainingTime(uuid));
+            tm.setLore(t);
+            time.setItemMeta(tm);
+
+            ItemStack unban = createItem("§aUnban", Material.SUGAR_CANE_BLOCK);
+            ItemMeta um = unban.getItemMeta();
+            List<String> u = new ArrayList<>();
+            u.add("§9§n§lCLICK HERE TO UNBAN " + playername);
+            um.setLore(u);
+            unban.setItemMeta(um);
+
+            inv.setItem(0, reason);
+            inv.setItem(3, time);
+            inv.setItem(8, unban);
+
+            return inv;
     }
 
     public static Inventory punishTimeMenu() {
