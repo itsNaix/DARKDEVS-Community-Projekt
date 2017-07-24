@@ -4,6 +4,7 @@ import com.google.common.util.concurrent.AbstractScheduledService;
 import de.darkdevs.cp.main.Main;
 import de.darkdevs.cp.utils.InventoryUtils;
 import de.darkdevs.cp.utils.punishment.BanManager;
+import de.darkdevs.cp.utils.punishment.MuteManager;
 import de.darkdevs.cp.utils.punishment.PunishmentGUI;
 import de.darkdevs.cp.utils.support.SupportHandler;
 import de.darkdevs.cp.utils.var;
@@ -73,9 +74,14 @@ public class LSTinventory implements Listener {
                         Inventory inv = InventoryUtils.punishTimeMenu();
                         player.openInventory(inv);
                     } else if (item.getItemMeta().getDisplayName().equalsIgnoreCase("§9Mute")) {
+                        player.closeInventory();
                         setPunishment("mute");
+                        Inventory inv = InventoryUtils.punishTimeMenu();
+                        player.openInventory(inv);
                     } else if (item.getItemMeta().getDisplayName().equalsIgnoreCase("§cKick")) {
                         setPunishment("kick");
+                        PunishmentGUI.kickPlayer(Bukkit.getPlayer(PunishmentGUI.getPlayername()), player, PunishmentGUI.getReason());
+                        player.closeInventory();
                     }
                 } catch(NullPointerException e) {
                     System.out.println("Schon wieder die komische NullPointerException");
@@ -128,7 +134,9 @@ public class LSTinventory implements Listener {
                                 String uuid = Bukkit.getPlayer(PunishmentGUI.getPlayername()).getUniqueId().toString();
                                 BanManager.ban(uuid, PunishmentGUI.getPlayername(), PunishmentGUI.getReason(), duration);
                                 Bukkit.broadcastMessage("Du hast " + PunishmentGUI.getPlayername() + " wegen " + PunishmentGUI.getReason() + " für " + duration + " Milisekunden gebannt");
-                            } else {
+                            } else if(getPunishment().equalsIgnoreCase("mute")){
+                                String uuid = Bukkit.getPlayer(PunishmentGUI.getPlayername()).getUniqueId().toString();
+                                MuteManager.mute(uuid, PunishmentGUI.getPlayername(), PunishmentGUI.getReason(), duration);
                             }
                         } else if (item.getItemMeta().getDisplayName().equalsIgnoreCase("§c-1 Week")) {
                             if (!(inventory.getItem(18).getType() == Material.THIN_GLASS)) {

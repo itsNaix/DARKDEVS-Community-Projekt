@@ -13,18 +13,11 @@ import java.util.List;
  */
 public class MuteManager {
 
-    public static void mute(String uuid, String name, String reason, int seconds) {
+    public static void mute(String uuid, String name, String reason, long seconds) {
         long current = System.currentTimeMillis();
         long millis = seconds * 1000;
         long end = current + millis;
         MySQL.execute("INSERT INTO players_muted (name, uuid, muteEnd, reason) VALUES ('" + name + "','" + uuid + "','" + end + "','" + reason + "')");
-        if(Bukkit.getPlayer(name) != null) {
-            Bukkit.getPlayer(name).sendMessage("§cDu wurdest gemuted!\n" +
-                    "\n" +
-                    "§3Grund: §e" + getReason(uuid) + "\n" +
-                    "§3Verbleibende Zeit: §e" + getRemainingTime(uuid) + "\n" +
-                    "§3Stelle einen Einspruch auf unserem Discord!");
-        }
     }
 
     public static void unmute(String uuid) {
@@ -79,6 +72,44 @@ public class MuteManager {
     }
 
     public static String getRemainingTime(String uuid) {
-        return "";
+        long current = System.currentTimeMillis();
+        long end = getEnd(uuid);
+        if(end == -1) {
+            return "§9Permanent";
+        }
+        long millis = end - current;
+
+        long seconds = 0;
+        long minutes = 0;
+        long hours = 0;
+        long days = 0;
+        long weeks = 0;
+        while(millis > 1000) {
+            millis -= 1000;
+            seconds++;
+        }
+        while(seconds > 60) {
+            seconds -= 60;
+            minutes++;
+        }
+        while(minutes > 60) {
+            minutes -= 60;
+            hours++;
+        }
+        while(hours > 24) {
+            hours = 24;
+            days++;
+        }
+        while(days > 7) {
+            days -= 7;
+            weeks++;
+        }
+        System.out.println(millis);
+        System.out.println(weeks);
+        System.out.println(days);
+        System.out.println(hours);
+        System.out.println(minutes);
+        System.out.println(seconds);
+        return "§9" + weeks + " Woche(n) " + days + " Tag(e) " + hours + " Stunde(n) " + minutes + " Minute(n) " + seconds + " Sekunde(n)";
     }
 }
